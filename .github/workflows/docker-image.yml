@@ -1,0 +1,26 @@
+name: Docker Image OS45
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: node
+
+    steps:
+    - uses: actions/checkout@v4
+      
+    - name: build docker image and push to hub
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with: 
+          image: asemmohamed321/dockerlab
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: "${{ secrets.HUB_USERNAME }}"
+          password: "${{ secrets.HUB_PASSWORD }}"
+          tags: latest  
